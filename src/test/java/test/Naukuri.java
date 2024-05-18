@@ -124,10 +124,11 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.Test;
 
 public class Naukuri {
-
-    public static void main(String[] args) {
+	@Test
+    public  void main() {
         System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
@@ -150,4 +151,3 @@ public class Naukuri {
         }
     }
 }
-
