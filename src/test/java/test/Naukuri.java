@@ -40,7 +40,7 @@ public class Naukuri {
 		driver = new ChromeDriver(options);
 		driver.navigate().to("https://www.naukri.com/nlogin/login");
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
 	}
 
 	@Test
@@ -56,6 +56,7 @@ public class Naukuri {
 		inputPassword.click();
 		inputPassword.sendKeys(password);
 		driver.findElement(By.xpath("//button[text()='Login']")).click();
+		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[text()='View']")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
