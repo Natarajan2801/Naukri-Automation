@@ -122,45 +122,32 @@
 package test;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.Test;
-
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Naukuri {
-	@Test
-    public void main() {
-        String selenoidUrl = System.getenv("SELENOID_URL");
-        if (selenoidUrl == null) {
-            selenoidUrl = "http://localhost:4444/wd/hub";
-        }
 
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName("chrome");
-        capabilities.setVersion("91.0");
-        capabilities.setCapability("enableVNC", true);
-        capabilities.setCapability("enableVideo", false);
+    public static void main(String[] args) {
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
 
-        WebDriver driver = null;
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--window-size=1920,1080");
+
+        WebDriver driver = new ChromeDriver(options);
+
         try {
-            driver = new RemoteWebDriver(new URL(selenoidUrl), capabilities);
-                    driver.get("https://www.naukri.com/nlogin/login");
-		// driver.manage().window().maximize();
-		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-		System.out.println(driver.getTitle());
-		System.out.println("--------------Sucessfully Profile Updated -----------");
+         driver.get("https://www.naukri.com/nlogin/login");
+	System.out.println(driver.getTitle());
+	System.out.println("--------------Sucessfully Profile Updated -----------");
 
             // Your test code here
 
-        } catch (MalformedURLException e) {
-		System.out.println("-------------error-----------");
+        } catch (Exception e) {
+		System.out.println("-------------error -----------");
             e.printStackTrace();
         } finally {
-            if (driver != null) {
-                driver.quit();
-            }
+            driver.quit();
         }
     }
 }
+
