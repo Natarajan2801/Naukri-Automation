@@ -138,17 +138,19 @@ public class Naukuri {
 
     @BeforeClass
     public void setup() throws MalformedURLException {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+       DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome");
         capabilities.setVersion("latest");
         capabilities.setCapability("enableVNC", true);
         capabilities.setCapability("enableVideo", false);
 
         driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+   
     }
 
     @Test
     public void testExample() {
+	    driver.get("https://www.naukri.com/nlogin/login");
        System.out.println(driver.getTitle());
 	System.out.println("--------------Sucessfully Profile Updated -----------");
 
