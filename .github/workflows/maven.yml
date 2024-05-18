@@ -1,28 +1,56 @@
-name: Run web tests in Github runner
+name: Run Selenium Tests with Selenoid
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - '**'
+  schedule:
+    - cron: '30 2 * * *' # 8:00 AM IST
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
+    services:
+      selenoid:
+        image: aerokube/selenoid:latest-release
+        ports:
+          - 4444:4444
+        options:
+          --env DOCKER_API_VERSION=1.41
+          --volume /var/run/docker.sock:/var/run/docker.sock
+          --volume selenoid:/opt/selenoid:rw
+
+      selenoid-ui:
+        image: aerokube/selenoid-ui:latest-release
+        ports:
+          - 8080:8080
+        options:
+          --link selenoid
+          --env SELENOID_URI=http://selenoid:4444
+
     steps:
-      - name: Start Selenoid server
-        uses: n-ton4/selenoid-github-action@master
-        id: start-selenoid
-        continue-on-error: false
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
         with:
-            version: 1.10.1
-            args: -limit 10
-            browsers: chrome
-            last-versions: 1
+          java-version: '11'
+          distribution: 'temurin'
 
-      - name: checkout
-        uses: actions/checkout@v2
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      - name: Run the tests
-        run: 
-            mvn clean test
-          
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Run Selenium Tests
+        run: mvn test
+        env:
+          SELENOID_URL: http://localhost:4444/wd/hub
