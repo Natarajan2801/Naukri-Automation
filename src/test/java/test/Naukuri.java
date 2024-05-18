@@ -129,8 +129,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Naukuri {
-
-    public static void main(String[] args) {
+	@Test
+    public void main() {
         String selenoidUrl = System.getenv("SELENOID_URL");
         if (selenoidUrl == null) {
             selenoidUrl = "http://localhost:4444/wd/hub";
