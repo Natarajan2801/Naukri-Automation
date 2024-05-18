@@ -24,6 +24,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 import java.time.Duration;
+import java.net.URL;
+
 
 public class Naukuri {
 	private WebDriver driver;
