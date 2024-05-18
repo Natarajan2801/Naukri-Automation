@@ -146,8 +146,8 @@ public class Naukuri {
         try {
             driver = new RemoteWebDriver(new URL(selenoidUrl), capabilities);
                     driver.get("https://www.naukri.com/nlogin/login");
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
+		// driver.manage().window().maximize();
+		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
 		System.out.println(driver.getTitle());
 		System.out.println("--------------Sucessfully Profile Updated -----------");
 
