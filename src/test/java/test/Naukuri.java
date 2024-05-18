@@ -24,59 +24,61 @@ import javax.crypto.spec.SecretKeySpec;
 import java.time.Duration;
 
 public class Naukuri {
-	private WebDriver driver;
+	//private WebDriver driver;
 	 private static final String ALGORITHM = "AES";
 
 	@BeforeClass
 	public void setUp() {
-		WebDriverManager.chromedriver().setup();
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--no-sandbox");
-		options.addArguments("--disable-dev-shm-usage");
-		options.addArguments("--headless");
-		driver = new ChromeDriver(options);
-		driver.navigate().to("https://www.naukri.com/nlogin/login");
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		// WebDriverManager.chromedriver().setup();
+		// ChromeOptions options = new ChromeOptions();
+		// options.addArguments("--no-sandbox");
+		// options.addArguments("--disable-dev-shm-usage");
+		// options.addArguments("--headless");
+		// driver = new ChromeDriver(options);
+		// driver.navigate().to("https://www.naukri.com/nlogin/login");
+		// driver.manage().window().maximize();
+		// driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 	}
 
 	@Test
-	public void userLogin() throws Exception {
+	public void updateProfile() throws Exception {
 		String key=encrypt("q8kZWlKAk1gyWfBaL7QqzA==", "q8kZWlKAk1gyWfBaL7QqzA==");
 		String userName=decrypt("ev/D2KxcHKRS7tJ9HX+ktmsPruQm2h97Ufq5rRrk6lM=",decrypt(key,"q8kZWlKAk1gyWfBaL7QqzA=="));
 		String password=decrypt("AqqnO796MrQGyFxKOzpljg==",decrypt(key,"q8kZWlKAk1gyWfBaL7QqzA=="));
-		WebElement inputEmail = driver.findElement(By.id("usernameField"));
-		inputEmail.click();
-		inputEmail.sendKeys(userName);
+		System.out.println(userName);
+		System.out.println(password);
+		// WebElement inputEmail = driver.findElement(By.id("usernameField"));
+		// inputEmail.click();
+		// inputEmail.sendKeys(userName);
 
-		WebElement inputPassword = driver.findElement(By.id("passwordField"));
-		inputPassword.click();
-		inputPassword.sendKeys(password);
-		driver.findElement(By.xpath("//button[text()='Login']")).click();
-		driver.findElement(By.xpath("//a[text()='View']")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
-		driver.findElement(By.xpath("//span[text()='Rest Assured']/following-sibling::span[text()='editOneTheme']"))
-				.click();
-		Thread.sleep(1000);
-		WebElement expInput = driver.findElement(By.xpath("//*[@id='expMonthDroopeFor']"));
-		String value = driver.findElement(By.xpath("//*[@id='hid_expMonthDroope']")).getAttribute("value");
-		expInput.click();
-		if (value.equals("4")) {
-			expInput.clear();
-			expInput.sendKeys("3 Months");
-			expInput.sendKeys(Keys.ENTER);
-		} else {
-			expInput.clear();
-			expInput.sendKeys("4 Months");
-			expInput.sendKeys(Keys.ENTER);
-		}
+		// WebElement inputPassword = driver.findElement(By.id("passwordField"));
+		// inputPassword.click();
+		// inputPassword.sendKeys(password);
+		// driver.findElement(By.xpath("//button[text()='Login']")).click();
+		// driver.findElement(By.xpath("//a[text()='View']")).click();
+		// Thread.sleep(1000);
+		// driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
+		// driver.findElement(By.xpath("//span[text()='Rest Assured']/following-sibling::span[text()='editOneTheme']"))
+		// 		.click();
+		// Thread.sleep(1000);
+		// WebElement expInput = driver.findElement(By.xpath("//*[@id='expMonthDroopeFor']"));
+		// String value = driver.findElement(By.xpath("//*[@id='hid_expMonthDroope']")).getAttribute("value");
+		// expInput.click();
+		// if (value.equals("4")) {
+		// 	expInput.clear();
+		// 	expInput.sendKeys("3 Months");
+		// 	expInput.sendKeys(Keys.ENTER);
+		// } else {
+		// 	expInput.clear();
+		// 	expInput.sendKeys("4 Months");
+		// 	expInput.sendKeys(Keys.ENTER);
+		// }
 
-		driver.findElement(By.xpath("//*[@id='saveITSkills']")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//div[@class='nI-gNb-drawer__icon-img-wrapper']")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//a[@title='Logout']")).click();
+		// driver.findElement(By.xpath("//*[@id='saveITSkills']")).click();
+		// Thread.sleep(1000);
+		// driver.findElement(By.xpath("//div[@class='nI-gNb-drawer__icon-img-wrapper']")).click();
+		// Thread.sleep(1000);
+		// driver.findElement(By.xpath("//a[@title='Logout']")).click();
 
 	}
     public static String decrypt(String encryptedData, String key) throws Exception {
@@ -95,8 +97,8 @@ public class Naukuri {
     }
 	@AfterClass
 	public void tearDown() {
-		if (driver != null) {
-			driver.quit();
-		}
+		// if (driver != null) {
+		// 	driver.quit();
+		// }
 	}
 }
