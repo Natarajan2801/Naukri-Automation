@@ -29,17 +29,23 @@ public class Naukuri {
 
 	@BeforeClass
 	public void setUp() {
-		WebDriverManager.chromedriver().setup();
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--no-sandbox");
-		options.addArguments("--disable-dev-shm-usage");
-		options.addArguments("--headless");
-		options.addArguments("--disable-gpu");
-		options.addArguments("--window-size=1920,1080");
-		 options.addArguments("--disable-blink-features=AutomationControlled");
-		 options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-		driver = new ChromeDriver(options);
-		driver.navigate().to("https://www.naukri.com/nlogin/login");
+		//WebDriverManager.chromedriver().setup();
+		// ChromeOptions options = new ChromeOptions();
+		// options.addArguments("--no-sandbox");
+		// options.addArguments("--disable-dev-shm-usage");
+		// options.addArguments("--headless");
+		// options.addArguments("--disable-gpu");
+		// options.addArguments("--window-size=1920,1080");
+		//  options.addArguments("--disable-blink-features=AutomationControlled");
+		//  options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+		// driver = new ChromeDriver(options);
+		// driver.navigate().to("https://www.naukri.com/nlogin/login");
+		   DesiredCapabilities capabilities = new DesiredCapabilities();
+     		   capabilities.setCapability("browserName", "chrome");
+     		   capabilities.setCapability("enableVNC", true);
+   		     capabilities.setCapability("enableVideo", false);
+    	 driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),capabilities);
+        driver.get("https://www.naukri.com/nlogin/login");
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
 	}
