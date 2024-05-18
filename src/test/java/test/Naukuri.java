@@ -154,6 +154,7 @@ public class Naukuri {
             // Your test code here
 
         } catch (MalformedURLException e) {
+		System.out.println("-------------error-----------");
             e.printStackTrace();
         } finally {
             if (driver != null) {
