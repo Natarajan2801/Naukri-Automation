@@ -56,8 +56,8 @@ public class Naukuri {
 		WebElement inputPassword = driver.findElement(By.id("passwordField"));
 		inputPassword.click();
 		inputPassword.sendKeys(password);
-		driver.findElement(By.xpath("//button[text()='Login']")).click();
-		Thread.sleep(3000);
+		driver.findElement(By.xpath("//button[text()='Login' and @class='waves-effect waves-light btn-large btn-block btn-bold blue-btn textTransform']")).click();
+		Thread.sleep(2000);
 		driver.findElement(By.xpath("//a[text()='View']")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
