@@ -125,12 +125,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Naukuri {
 	@Test
     public  void main() {
-        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
-
+      //  System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+	WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920,1080");
 
