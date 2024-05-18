@@ -34,9 +34,40 @@ jobs:
 
       - name: Start Selenoid
         run: |
+          # Pull the required browser images
           docker pull selenoid/chrome:latest
           docker pull selenoid/firefox:latest
-          docker run -d --name selenoid -p 4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $GITHUB_WORKSPACE/browsers.json:/etc/selenoid/browsers.json aerokube/selenoid:latest-release -conf /etc/selenoid/browsers.json
+          
+          # Create a configuration directory and browsers.json
+          mkdir -p $GITHUB_WORKSPACE/config
+          echo '{
+            "chrome": {
+              "default": "latest",
+              "versions": {
+                "latest": {
+                  "image": "selenoid/chrome:latest",
+                  "port": "4444",
+                  "path": "/"
+                }
+              }
+            },
+            "firefox": {
+              "default": "latest",
+              "versions": {
+                "latest": {
+                  "image": "selenoid/firefox:latest",
+                  "port": "4444",
+                  "path": "/"
+                }
+              }
+            }
+          }' > $GITHUB_WORKSPACE/config/browsers.json
+
+          # Run Selenoid with the configuration
+          docker run -d --name selenoid -p 4444:4444 \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v $GITHUB_WORKSPACE/config/browsers.json:/etc/selenoid/browsers.json \
+            aerokube/selenoid:latest-release -conf /etc/selenoid/browsers.json
 
       - name: Build with Maven
         run: mvn clean install
