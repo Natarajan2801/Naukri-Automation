@@ -124,30 +124,43 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-public class Naukuri {
-	@Test
-    public  void main() {
-      //  System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
-	WebDriverManager.chromedriver().setup();
+public class NonHeadlessTest {
+
+    private WebDriver driver;
+
+    @BeforeClass
+    public void setup() {
+        // Use WebDriverManager to set up chromedriver
+        WebDriverManager.chromedriver().setup();
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--window-size=1920,1080");
+        options.addArguments("--disable-dev-shm-usage"); // Overcomes limited resource problems
+        options.addArguments("--no-sandbox"); // Bypass OS security model
+        options.addArguments("--disable-gpu"); // Applicable to Windows OS only
+        options.addArguments("--disable-extensions"); // Disables extensions
+        options.addArguments("--disable-software-rasterizer"); // Disables software rasterizer
+        options.addArguments("--remote-debugging-port=9222"); // Remote debugging port
 
-        WebDriver driver = new ChromeDriver(options);
+        driver = new ChromeDriver(options);
+    }
 
-        try {
-         driver.get("https://www.naukri.com/nlogin/login");
-	System.out.println(driver.getTitle());
+    @Test
+    public void testExample() {
+          // Your test code here
+	    System.out.println(driver.getTitle());
 	System.out.println("--------------Sucessfully Profile Updated -----------");
 
-            // Your test code here
+    }
 
-        } catch (Exception e) {
-		System.out.println("-------------error -----------");
-            e.printStackTrace();
-        } finally {
+    @AfterClass
+    public void teardown() {
+        if (driver != null) {
             driver.quit();
         }
     }
