@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="test.Cricbuzz"/>
+      <class name="test.Naukuri"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
