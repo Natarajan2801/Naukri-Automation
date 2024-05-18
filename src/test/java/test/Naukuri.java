@@ -119,43 +119,40 @@
 // }
 
 
+
 package test;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Naukuri {
 
     private WebDriver driver;
 
     @BeforeClass
-    public void setup() {
-        // Use WebDriverManager to set up chromedriver
-        WebDriverManager.chromedriver().setup();
+    public void setup() throws MalformedURLException {
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setBrowserName("chrome");
+        capabilities.setVersion("latest");
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", false);
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--window-size=1920,1080");
-        options.addArguments("--disable-dev-shm-usage"); // Overcomes limited resource problems
-        options.addArguments("--no-sandbox"); // Bypass OS security model
-        options.addArguments("--disable-gpu"); // Applicable to Windows OS only
-        options.addArguments("--disable-extensions"); // Disables extensions
-        options.addArguments("--disable-software-rasterizer"); // Disables software rasterizer
-        options.addArguments("--remote-debugging-port=9222"); // Remote debugging port
-
-        driver = new ChromeDriver(options);
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
     }
 
     @Test
     public void testExample() {
-          // Your test code here
-	    System.out.println(driver.getTitle());
+       System.out.println(driver.getTitle());
 	System.out.println("--------------Sucessfully Profile Updated -----------");
 
+        // Your test code here
     }
 
     @AfterClass
