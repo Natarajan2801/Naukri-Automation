@@ -1,11 +1,13 @@
-name: Schedule web tests in Github runner
-#UTC
+name: Run web tests in Github runner
+
 on:
-  schedule:
-    - cron: '0 22 * * *'
+  push:
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Start Selenoid server
         uses: n-ton4/selenoid-github-action@master
