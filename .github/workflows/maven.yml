@@ -1,4 +1,4 @@
-name: Run Selenium Tests with Xvfb
+name: Run Selenium Tests with Selenoid
 
 on:
   push:
@@ -29,24 +29,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Install Chrome and Dependencies
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Start Selenoid
         run: |
-          sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb libxi6 libgconf-2-4
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+          docker pull selenoid/chrome:latest
+          docker pull selenoid/firefox:latest
+          docker run -d --name selenoid -p 4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $GITHUB_WORKSPACE/browsers.json:/etc/selenoid/browsers.json aerokube/selenoid:latest-release -conf /etc/selenoid/browsers.json
 
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Start Xvfb
-        run: |
-          Xvfb :99 -screen 0 1920x1080x24 & # Start Xvfb
-          export DISPLAY=:99
-
       - name: Run Selenium Tests
-        run: |
-          export DISPLAY=:99
-          mvn test
+        run: mvn test
