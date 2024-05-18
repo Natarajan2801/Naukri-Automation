@@ -32,7 +32,7 @@ public class Naukuri {
 	 private static final String ALGORITHM = "AES";
 
 	@BeforeClass
-	public void setUp() {
+	public void setUp() throws Exception {
 		//WebDriverManager.chromedriver().setup();
 		// ChromeOptions options = new ChromeOptions();
 		// options.addArguments("--no-sandbox");
