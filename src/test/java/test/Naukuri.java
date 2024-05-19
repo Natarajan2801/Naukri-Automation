@@ -54,7 +54,7 @@ public class Naukuri {
 		inputPassword.click();
 		inputPassword.sendKeys(password);
 		driver.findElement(By.xpath(
-				"//*[@id='loginForm']/div[2]/div[3]/div/button[1]"))
+				"//*[@id='loginForm']/div[2]/div[3]/div/button[2]"))
 				.click();
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//a[text()='View']")).click();
