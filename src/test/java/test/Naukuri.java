@@ -52,28 +52,27 @@ public class Naukuri {
 
 	@Test
 	public void updateProfile() throws Exception {
-		try{
 		String key = encrypt("q8kZWlKAk1gyWfBaL7QqzA==", "q8kZWlKAk1gyWfBaL7QqzA==");
 		String userName = decrypt("ev/D2KxcHKRS7tJ9HX+ktmsPruQm2h97Ufq5rRrk6lM=",
 				decrypt(key, "q8kZWlKAk1gyWfBaL7QqzA=="));
 		String password = decrypt("AqqnO796MrQGyFxKOzpljg==", decrypt(key, "q8kZWlKAk1gyWfBaL7QqzA=="));
-		WebElement inputEmail = driver.findElement(By.id("usernameField"));
+		
+		driver.findElement(By.xpath("//a[@title='Search Jobs']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.xpath("//a[@class='nI-gNb-lg-rg__login']")).click();
+		Thread.sleep(1000);
+
+		WebElement inputEmail = driver.findElement(By.xpath("//input[@placeholder='Enter your active Email ID / Username']"));
 		inputEmail.click();
 		inputEmail.sendKeys(userName);
 
-		WebElement inputPassword = driver.findElement(By.id("passwordField"));
+		WebElement inputPassword = driver.findElement(By.xpath("//input[@placeholder='Enter your password']"));
 		inputPassword.click();
 		inputPassword.sendKeys(password);
-		Thread.sleep(1000);
+		
+		driver.findElement(By.xpath("//button[@class='btn-primary loginButton']")).click();
+		//Thread.sleep(1000);
 		  takeScreenshot("screenshot-before-click.png");
-		System.out.println("--------------screen shot taken-----------");
-
-//		driver.findElement(By.xpath(
-//				"//button[text()='Login' and @class='waves-effect waves-light btn-large btn-block btn-bold blue-btn textTransform' and @data-ga-track='spa-event|login|login|Save||||true']"))
-//				.click();
-		WebElement login = driver.findElement(By.xpath("//button[text()='Login' and @class='waves-effect waves-light btn-large btn-block btn-bold blue-btn textTransform' and @data-ga-track='spa-event|login|login|Save||||true']"));
-		JavascriptExecutor j = (JavascriptExecutor) driver;
-		j.executeScript("arguments[0].click();", login);
 		Thread.sleep(2000);
 		  takeScreenshot("screenshot-after-click.png");
 		driver.findElement(By.xpath("//a[text()='View']")).click();
@@ -101,10 +100,6 @@ public class Naukuri {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[@title='Logout']")).click();
 		System.out.println("--------------Sucessfully Profile Updated -----------");
-		}
-		catch(Exception e){
-		System.out.println("--------------error -----------");
-		}
 
 	}
 
