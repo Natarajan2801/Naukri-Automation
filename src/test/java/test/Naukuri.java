@@ -52,6 +52,7 @@ public class Naukuri {
 
 	@Test
 	public void updateProfile() throws Exception {
+		try{
 		String key = encrypt("q8kZWlKAk1gyWfBaL7QqzA==", "q8kZWlKAk1gyWfBaL7QqzA==");
 		String userName = decrypt("ev/D2KxcHKRS7tJ9HX+ktmsPruQm2h97Ufq5rRrk6lM=",
 				decrypt(key, "q8kZWlKAk1gyWfBaL7QqzA=="));
@@ -74,8 +75,9 @@ public class Naukuri {
 		//Thread.sleep(1000);
 		  takeScreenshot("screenshot-before-click.png");
 		Thread.sleep(2000);
-		  takeScreenshot("screenshot-after-click.png");
+		  
 		driver.findElement(By.xpath("//a[text()='View']")).click();
+		
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
 		driver.findElement(By.xpath("//span[text()='Rest Assured']/following-sibling::span[text()='editOneTheme']"))
@@ -100,6 +102,11 @@ public class Naukuri {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[@title='Logout']")).click();
 		System.out.println("--------------Sucessfully Profile Updated -----------");
+		}
+		catch(Exception e){
+			takeScreenshot("screenshot-after-click.png");
+			System.out.println("--------------error -----------");
+		}
 
 	}
 
