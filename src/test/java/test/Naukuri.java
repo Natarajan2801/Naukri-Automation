@@ -104,6 +104,7 @@ public class Naukuri {
 		System.out.println("--------------Sucessfully Profile Updated -----------");
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			takeScreenshot("screenshot-after-click.png");
 			System.out.println("--------------error -----------");
 		}
