@@ -1,14 +1,14 @@
-name: Daily Maven Build
+name: Run Selenium Tests
 
 on:
   push:
     branches:
       - '**'
   schedule:
-    - cron: '30 2 * * *' # 2:30 AM UTC (8:00 AM IST)
+    - cron: '30 2 * * *' # 8:00 AM IST
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin' # or 'adopt', 'zulu', etc.
+          distribution: 'temurin'
 
       - name: Cache Maven packages
         uses: actions/cache@v3
@@ -29,5 +29,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Set up ChromeDriver
+        uses: actions/checkout@v3
+
+      - name: Download ChromeDriver
+        run: |
+          wget https://chromedriver.storage.googleapis.com/$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip -d /usr/local/bin
+
       - name: Build with Maven
         run: mvn clean install
+
+      - name: Run Selenium Tests
+        run: mvn test
+
+      - name: Collect Screenshots
+        uses: actions/upload-artifact@v3
+        with:
+          name: selenium-screenshots
+          path: |
+            screenshot-before-click.png
+            screenshot-after-click.png
