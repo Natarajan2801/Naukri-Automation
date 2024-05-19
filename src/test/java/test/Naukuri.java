@@ -128,10 +128,15 @@ public class Naukuri {
 
 	}
 	
-	   private void takeScreenshot(String fileName) throws IOException {
-	        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-	        Files.copy(screenshot.toPath(), Paths.get(fileName));
-	    }
+	   private void takeScreenshot(String filePath) throws IOException {
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        Files.createDirectories(Paths.get("screenshots"));
+        File targetFile = new File(filePath);
+        if (targetFile.exists()) {
+            targetFile.delete();
+        }
+        Files.copy(screenshot.toPath(), targetFile.toPath());
+    }
 
 	@AfterClass
 	public void tearDown() {
