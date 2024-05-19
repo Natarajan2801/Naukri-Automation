@@ -70,10 +70,12 @@ public class Naukuri {
 		WebElement inputPassword = driver.findElement(By.xpath("//input[@placeholder='Enter your password']"));
 		inputPassword.click();
 		inputPassword.sendKeys(password);
-		
-		driver.findElement(By.xpath("//button[@class='btn-primary loginButton']")).click();
+			
+		inputPassword.sendKeys(Keys.ENTER);
+		takeScreenshot("screenshot-before-click.png");
+		//driver.findElement(By.xpath("//button[@class='btn-primary loginButton']")).click();
 		//Thread.sleep(1000);
-		  takeScreenshot("screenshot-before-click.png");
+		  
 		Thread.sleep(2000);
 		  
 		driver.findElement(By.xpath("//a[text()='View']")).click();
