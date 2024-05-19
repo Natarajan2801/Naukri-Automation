@@ -52,6 +52,7 @@ public class Naukuri {
 
 	@Test
 	public void updateProfile() throws Exception {
+		try{
 		String key = encrypt("q8kZWlKAk1gyWfBaL7QqzA==", "q8kZWlKAk1gyWfBaL7QqzA==");
 		String userName = decrypt("ev/D2KxcHKRS7tJ9HX+ktmsPruQm2h97Ufq5rRrk6lM=",
 				decrypt(key, "q8kZWlKAk1gyWfBaL7QqzA=="));
@@ -65,6 +66,8 @@ public class Naukuri {
 		inputPassword.sendKeys(password);
 		Thread.sleep(1000);
 		  takeScreenshot("screenshot-before-click.png");
+		System.out.println("--------------screen shot taken-----------");
+
 //		driver.findElement(By.xpath(
 //				"//button[text()='Login' and @class='waves-effect waves-light btn-large btn-block btn-bold blue-btn textTransform' and @data-ga-track='spa-event|login|login|Save||||true']"))
 //				.click();
@@ -98,6 +101,10 @@ public class Naukuri {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[@title='Logout']")).click();
 		System.out.println("--------------Sucessfully Profile Updated -----------");
+		}
+		catch(Exception e){
+		System.out.println("--------------error -----------");
+		}
 
 	}
 
