@@ -7,6 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -53,9 +54,13 @@ public class Naukuri {
 		WebElement inputPassword = driver.findElement(By.id("passwordField"));
 		inputPassword.click();
 		inputPassword.sendKeys(password);
-		driver.findElement(By.xpath(
-				"//*[@id='loginForm']/div[2]/div[3]/div/button[2]"))
-				.click();
+		Thread.sleep(1000);
+//		driver.findElement(By.xpath(
+//				"//button[text()='Login' and @class='waves-effect waves-light btn-large btn-block btn-bold blue-btn textTransform' and @data-ga-track='spa-event|login|login|Save||||true']"))
+//				.click();
+		WebElement login = driver.findElement(By.xpath("//button[text()='Login' and @class='waves-effect waves-light btn-large btn-block btn-bold blue-btn textTransform' and @data-ga-track='spa-event|login|login|Save||||true']"));
+		JavascriptExecutor j = (JavascriptExecutor) driver;
+		j.executeScript("arguments[0].click();", login);
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//a[text()='View']")).click();
 		Thread.sleep(1000);
