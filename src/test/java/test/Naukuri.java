@@ -9,6 +9,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -16,6 +18,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.Duration;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -55,6 +64,7 @@ public class Naukuri {
 		inputPassword.click();
 		inputPassword.sendKeys(password);
 		Thread.sleep(1000);
+		  takeScreenshot("screenshot-before-click.png");
 //		driver.findElement(By.xpath(
 //				"//button[text()='Login' and @class='waves-effect waves-light btn-large btn-block btn-bold blue-btn textTransform' and @data-ga-track='spa-event|login|login|Save||||true']"))
 //				.click();
@@ -62,6 +72,7 @@ public class Naukuri {
 		JavascriptExecutor j = (JavascriptExecutor) driver;
 		j.executeScript("arguments[0].click();", login);
 		Thread.sleep(2000);
+		  takeScreenshot("screenshot-after-click.png");
 		driver.findElement(By.xpath("//a[text()='View']")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
@@ -106,6 +117,11 @@ public class Naukuri {
 		return Base64.getEncoder().encodeToString(encryptedData);
 
 	}
+	
+	   private void takeScreenshot(String fileName) throws IOException {
+	        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+	        Files.copy(screenshot.toPath(), Paths.get(fileName));
+	    }
 
 	@AfterClass
 	public void tearDown() {
