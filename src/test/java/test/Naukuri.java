@@ -36,17 +36,17 @@ public class Naukuri {
 	public void setUp() throws Exception {
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
-		// options.addArguments("--headless");
-  //       options.addArguments("--disable-gpu");
-  //       options.addArguments("--window-size=1920,1080");
-  //       options.addArguments("--no-sandbox");
-  //       options.addArguments("--disable-dev-shm-usage");
-  //       options.addArguments("--disable-blink-features=AutomationControlled");
-  //       options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
-  //       options.setExperimentalOption("useAutomationExtension", false);
-  //       options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-  //       options.addArguments("--incognito");
-  //       options.addArguments("--disable-extensions");
+		options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--disable-blink-features=AutomationControlled");
+        options.addArguments("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3");
+        options.setExperimentalOption("useAutomationExtension", false);
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        options.addArguments("--incognito");
+        options.addArguments("--disable-extensions");
 		driver = new ChromeDriver(options);
 		driver.get("https://www.naukri.com/nlogin/login");
 		driver.manage().window().maximize();
@@ -73,13 +73,11 @@ public class Naukuri {
 		WebElement inputPassword = driver.findElement(By.xpath("//input[@placeholder='Enter your password']"));
 		inputPassword.click();
 		inputPassword.sendKeys(password);
-		System.out.println("--------------before ss -----------");
 		inputPassword.sendKeys(Keys.ENTER);
-		takeScreenshot("screenshot-before-click.png");
+		
 		//driver.findElement(By.xpath("//button[@class='btn-primary loginButton']")).click();
 		//Thread.sleep(1000);
-		  
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		  
 		driver.findElement(By.xpath("//a[text()='View']")).click();
 		
@@ -109,8 +107,8 @@ public class Naukuri {
 		System.out.println("--------------Sucessfully Profile Updated -----------");
 		}
 		catch(Exception e){
-			e.printStackTrace();
 			takeScreenshot("screenshot-after-click.png");
+			e.printStackTrace();
 			System.out.println("--------------error -----------");
 		}
 
@@ -133,15 +131,15 @@ public class Naukuri {
 
 	}
 	
-	   private void takeScreenshot(String filePath) throws IOException {
-        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        Files.createDirectories(Paths.get("screenshots"));
-        File targetFile = new File(filePath);
-        if (targetFile.exists()) {
-            targetFile.delete();
-        }
-        Files.copy(screenshot.toPath(), targetFile.toPath());
-    }
+	   private void takeScreenshot(String fileName) throws IOException {
+		   File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+	        Files.createDirectories(Paths.get("screenshots"));
+	        File targetFile = new File(fileName);
+	        if (targetFile.exists()) {
+	            targetFile.delete();
+	        }
+	        Files.copy(screenshot.toPath(), targetFile.toPath());
+	    }
 
 	@AfterClass
 	public void tearDown() {
