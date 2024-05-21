@@ -60,7 +60,7 @@ public class Naukuri {
 		String userName = decrypt("ev/D2KxcHKRS7tJ9HX+ktmsPruQm2h97Ufq5rRrk6lM=",
 				decrypt(key, "q8kZWlKAk1gyWfBaL7QqzA=="));
 		String password = decrypt("AqqnO796MrQGyFxKOzpljg==", decrypt(key, "q8kZWlKAk1gyWfBaL7QqzA=="));
-		
+		Thread.sleep(4000);
 		driver.findElement(By.xpath("//a[@title='Search Jobs']")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[@class='nI-gNb-lg-rg__login']")).click();
