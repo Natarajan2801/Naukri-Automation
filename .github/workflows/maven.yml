@@ -6,26 +6,34 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 2 * * *' # Adjust as necessary
+    - cron: '0 2 * * *'  # Adjust as necessary
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: self-hosted  # Specifies the self-hosted runner
     env:
-      MAVEN_OPTS: "-Xmx1024m"
-      JAVA_HOME: "/usr/lib/jvm/java-11-openjdk"
+      MAVEN_OPTS: "-Xmx1024m"  # Example environment variable for Maven
+      JAVA_HOME: "/usr/lib/jvm/java-11-openjdk"  # Path to Java home (optional, usually set by setup-java)
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # Checks out your repository
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
-          distribution: 'adopt'  # Specify the distribution, e.g., 'adopt', 'zulu', 'temurin', etc.
+          java-version: '11'  # Specifies Java version
+          distribution: 'adopt'  # Specifies the Java distribution
+
+      - name: Install Maven
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y maven
+
+      - name: Verify Maven Installation
+        run: mvn -version
 
       - name: Build with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -B package --file pom.xml  # Runs the Maven build
 
       - name: Run tests
-        run: mvn test
+        run: mvn test  # Runs the Maven tests
