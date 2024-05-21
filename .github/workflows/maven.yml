@@ -37,4 +37,4 @@ jobs:
         run: mvn -B package --file pom.xml  # Runs the Maven build
 
       - name: Run tests
-        run: mvn test  # Runs the Maven tests
+        run: mvn test  # Runs the Maven test
