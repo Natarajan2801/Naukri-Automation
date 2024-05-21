@@ -11,6 +11,9 @@ on:
 jobs:
   build:
     runs-on: self-hosted
+    env:
+      MAVEN_OPTS: "-Xmx1024m"
+      JAVA_HOME: "/usr/lib/jvm/java-11-openjdk"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -19,6 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
+          distribution: 'adopt'  # Specify the distribution, e.g., 'adopt', 'zulu', 'temurin', etc.
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
