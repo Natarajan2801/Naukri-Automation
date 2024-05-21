@@ -15,8 +15,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2  # Checks out your repository
         
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml  # Runs the Maven build
-
       - name: Run tests
         run: mvn test  # Runs the Maven test
