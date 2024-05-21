@@ -6,14 +6,11 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 2 * * *' # Adjust as necessary
 
 jobs:
   build:
     runs-on: self-hosted
-    env:
-      MAVEN_OPTS: "-Xmx1024m"
-      JAVA_HOME: "/usr/lib/jvm/java-11-openjdk"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
