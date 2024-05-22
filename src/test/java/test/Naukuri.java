@@ -83,8 +83,8 @@ public class Naukuri {
 		
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
-		driver.findElement(By.xpath("//span[text()='Rest Assured']/following-sibling::span[text()='editOneTheme']"))
-				.click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//span[text()='Rest Assured']/following-sibling::span[text()='editOneTheme']")).click();
 		Thread.sleep(1000);
 		WebElement expInput = driver.findElement(By.xpath("//*[@id='expMonthDroopeFor']"));
 		String value = driver.findElement(By.xpath("//*[@id='hid_expMonthDroope']")).getAttribute("value");
