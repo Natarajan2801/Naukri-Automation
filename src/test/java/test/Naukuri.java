@@ -55,7 +55,7 @@ public class Naukuri {
 
 	@Test
 	public void updateProfile() throws Exception {
-		try{
+		
 		String key = encrypt("q8kZWlKAk1gyWfBaL7QqzA==", "q8kZWlKAk1gyWfBaL7QqzA==");
 		String userName = decrypt("ev/D2KxcHKRS7tJ9HX+ktmsPruQm2h97Ufq5rRrk6lM=",
 				decrypt(key, "q8kZWlKAk1gyWfBaL7QqzA=="));
@@ -105,13 +105,7 @@ public class Naukuri {
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//a[@title='Logout']")).click();
 		System.out.println("--------------Sucessfully Profile Updated -----------");
-		}
-		catch(Exception e){
-			takeScreenshot("screenshot-after-click.png");
-			e.printStackTrace();
-			System.out.println("--------------error -----------");
-		}
-
+		
 	}
 
 	public static String decrypt(String encryptedData, String key) throws Exception {
