@@ -80,7 +80,6 @@ public class Naukuri {
 		Thread.sleep(1000);
 		  
 		driver.findElement(By.xpath("//a[text()='View']")).click();
-		
 		Thread.sleep(4000);
 		driver.findElement(By.xpath("//ul/li/span[text()='IT skills']")).click();
 		Thread.sleep(2000);
